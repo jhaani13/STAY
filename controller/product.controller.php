@@ -1,33 +1,22 @@
 <?php
-include_once "connect.php";
+include_once __DIR__ . "/../model/product.model.php";
 
-class ProductController
+class ProductController extends ProductModel
 {
-    protected $connection;
-
-    public function __construct()
+    public function getProducts()
     {
-        global $connection; 
-        $this->connection = $connection;
+        //call query function di model product
+        return $this->findAll();
     }
-
-    // ambil semua produk
-    protected function getProduct()
+    public function getProductBy()
     {
-        $sql = "SELECT * FROM product";
-        $result = mysqli_query($this->connection, $sql);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-
-    // ambil produk berdasarkan ID (contoh)
-    protected function getProductBy($id = null)
-    {
-        if ($id === null) {
-            return [];
+        if (!isset($_GET['id'])) {
+            return;
         }
-        $sql = "SELECT * FROM product WHERE id = " . intval($id);
-        $result = mysqli_query($this->connection, $sql);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $onlyId = preg_replace('/\D/', '', $_GET['id']);
+        if ($onlyId !== "") {
+            return $this->findOne($_GET['id']);
+        }
     }
 }
 ?>

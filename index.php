@@ -1,8 +1,8 @@
 <?php
-include "connect.php";
-include "./model/users.model.php";
-include "./controller/users.controller.php";
-include "./view/users/product.view.php";
+include "connection.php";
+include "./model/product.model.php";
+include "./controller/product.controller.php";
+include "./view/product/product.view.php";
 $product = new ProductView();
 ?>
 
@@ -17,8 +17,10 @@ $product = new ProductView();
     <!-- navigator bar -->
      <?php include "./view/utils/navbar.utils.php"; ?>
 
+    <?php $product = new ProductView(); ?>
+
     <!-- mencari produk via url -->
-     <?php $users->find(); ?>
+     <?php $product->find(); ?>
     
     <!-- semua produk -->
     <table border="1">
@@ -28,7 +30,7 @@ $product = new ProductView();
             <th>PRICE</th>
             <th>STOCK</th>
         </tr>
-        <?php $users->show() ?>
+        <?php $product->show() ?>
     </table>
 
     <!-- footer disini -->
